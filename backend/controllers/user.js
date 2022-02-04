@@ -33,8 +33,8 @@ exports.login = (req, res, next) => {
           res.status(200).json({ // Création de token d'authentification 
             userId: user._id,
             token: jwt.sign(
-                { userId: user._id },
-                'RANDOM_TOKEN_SECRET',
+                { userId: user._id }, // indentifiant de l'user dans la base de données
+                'RANDOM_TOKEN_SECRET', // clé d'encodage
                 { expiresIn: '24h' }
             )
           });

@@ -1,8 +1,10 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
+const path = require('path');
 
 const userRoutes = require('./routes/user');
+const sauceRoutes = require('./routes/sauce');
 
 // Connexion à la base de données mongooseDB
 mongoose.connect('mongodb+srv://admin:Passw0rd@cluster0.hubtz.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
@@ -21,6 +23,10 @@ app.use((req, res, next) => {
     next();
 });
 
+// Gère les requetes images statiques 
+app.use('/images', express.static(path.join(__dirname, 'images')));
+
 app.use('/api/auth', userRoutes);
+app.use('/api/sauces', sauceRoutes);
 
 module.exports = app;
